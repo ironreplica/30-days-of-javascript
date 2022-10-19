@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- left off at 6.50 -->
     <meta charset="UTF-8" />
     <title>Scoped CSS Variables and JS</title>
   </head>
@@ -37,6 +38,19 @@
     <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500" />
 
     <style>
+      :root {
+        --base: #ffc700;
+        --spacing: 10px;
+        --blur: 10px;
+      }
+      img {
+        padding: var(--spacing);
+        background: var(--base);
+        filter: blur(var(--blur));
+      }
+      .hl {
+        color: var(--base);
+      }
       /*
       misc styles, nothing to do with CSS variables
     */
@@ -59,6 +73,14 @@
       }
     </style>
 
-    <script></script>
+    <script>
+      const inputs = document.querySelectorAll(" .controls input");
+
+      function handleUpdate() {
+        console.log(this.value);
+      }
+      inputs.forEach((input) => input.addEventListener("change", handleUpdate));
+      console.log(inputs);
+    </script>
   </body>
 </html>
