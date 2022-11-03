@@ -95,23 +95,34 @@
     </div>
 
     <script>
-      document.querySelectorAll("input[type=checkbox]");
-      document.addEventListener("onclick", () => {
-        checkboxes = document.querySelectorAll("input[type=checkbox]").checked;
-        console.log(checkboxes);
-      });
-      document.addEventListener("keyup", (event) => {
-        if (event.keyCode == 16) {
-          console.log("shift");
-        }
-      });
-      //   create an array of all the checkboxes, loop and see which is checked, find the one you just selected
-      // if you are holding shift grab the numbers between in the array
-      let checkboxes = document.querySelectorAll(
-        "input[type=checkbox]"
-      ).checked;
+      let checkboxes = document.querySelectorAll("input[type=checkbox]");
+      let lastchecked;
+      console.log(checkboxes.length);
+      setEventListeners();
 
-      console.log(checkboxes);
+      function setEventListeners() {
+        // for (i = 0; i < checkboxes.length; i++) {
+        //   checkboxes[i].addEventListener("click", onCheck);
+        // }
+        checkboxes.forEach((checkbox) =>
+          checkbox.addEventListener("click", onCheck)
+        );
+      }
+      function onCheck(e) {
+        let inBetween = false;
+
+        if (this.checked && e.shiftKey) {
+          checkboxes.forEach((checkbox) => {
+            if (checkbox === this || checkbox === lastchecked) {
+              inBetween = !inBetween;
+            }
+            if (inBetween) {
+              checkbox.checked = true;
+            }
+          });
+        }
+        lastchecked = this;
+      }
     </script>
   </body>
 </html>
