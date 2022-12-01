@@ -2,62 +2,71 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Speech Detection</title>
+    <title>👀👀👀Follow Along Nav</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="words" contenteditable></div>
+    <nav>
+      <ul class="menu">
+        <li><a href="">Home</a></li>
+        <li><a href="">Order Status</a></li>
+        <li><a href="">Tweets</a></li>
+        <li><a href="">Read Our History</a></li>
+        <li><a href="">Contact Us</a></li>
+      </ul>
+    </nav>
+
+    <div class="wrapper">
+      <p>
+        Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipisicing elit.
+        Est <a href="">explicabo</a> unde natus necessitatibus esse obcaecati
+        distinctio, aut itaque, qui vitae!
+      </p>
+      <p>
+        Aspernatur sapiente quae sint <a href="">soluta</a> modi, atque
+        praesentium laborum pariatur earum <a href="">quaerat</a> cupiditate
+        consequuntur facilis ullam dignissimos, aperiam quam veniam.
+      </p>
+      <p>
+        Cum ipsam quod, incidunt sit ex <a href="">tempore</a> placeat maxime
+        <a href="">corrupti</a> possimus <a href="">veritatis</a> ipsum fugit
+        recusandae est doloremque? Hic, <a href="">quibusdam</a>, nulla.
+      </p>
+      <p>
+        Esse quibusdam, ad, ducimus cupiditate <a href="">nulla</a>, quae magni
+        odit <a href="">totam</a> ut consequatur eveniet sunt quam provident
+        sapiente dicta neque quod.
+      </p>
+      <p>
+        Aliquam <a href="">dicta</a> sequi culpa fugiat
+        <a href="">consequuntur</a> pariatur optio ad minima, maxime
+        <a href="">odio</a>, distinctio magni impedit tempore enim repellendus
+        <a href="">repudiandae</a> quas!
+      </p>
+    </div>
 
     <script>
-      window.SpeechRecognition =
-        window.SpeechRecognition || window.webkitSpeechRecognition;
+      const triggers = document.querySelectorAll("a");
+      const highlight = document.createElement("span");
+      highlight.classList.add("highlight");
+      document.body.append(highlight);
+
+      function highlightLink() {
+        const linkCoords = this.getBoundingClientRect();
+        console.log(linkCoords);
+        const coords = {
+          width: linkCoords.width,
+          height: linkCoords.height,
+          top: linkCoords.top + window.scrollY,
+          left: linkCoords.left + window.scrollX,
+        };
+
+        highlight.style.width = `${coords.width}px`;
+        highlight.style.height = `${coords.height}px`;
+        highlight.style.transform = `translate(${coords.left}px,${coords.top}px)`;
+      }
+
+      triggers.forEach((a) => a.addEventListener("mouseenter", highlightLink));
     </script>
-
-    <style>
-      html {
-        font-size: 10px;
-      }
-
-      body {
-        background: #ffc600;
-        font-family: "helvetica neue";
-        font-weight: 200;
-        font-size: 20px;
-      }
-
-      .words {
-        max-width: 500px;
-        margin: 50px auto;
-        background: white;
-        border-radius: 5px;
-        box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.1);
-        padding: 1rem 2rem 1rem 5rem;
-        background: -webkit-gradient(
-            linear,
-            0 0,
-            0 100%,
-            from(#d9eaf3),
-            color-stop(4%, #fff)
-          )
-          0 4px;
-        background-size: 100% 3rem;
-        position: relative;
-        line-height: 3rem;
-      }
-
-      p {
-        margin: 0 0 3rem;
-      }
-
-      .words:before {
-        content: "";
-        position: absolute;
-        width: 4px;
-        top: 0;
-        left: 30px;
-        bottom: 0;
-        border: 1px solid;
-        border-color: transparent #efe4e4;
-      }
-    </style>
   </body>
 </html>
