@@ -39,6 +39,55 @@
       const holes = document.querySelectorAll(".hole");
       const scoreBoard = document.querySelector(".score");
       const moles = document.querySelectorAll(".mole");
+      let lastHole;
+      let timeUp = false;
+      let score = 0;
+
+      function randTime(min, max) {
+        return Math.round(Math.random() * (max - min) + min);
+      }
+
+      function randomHole(holes) {
+        const idx = Math.floor(Math.random() * holes.length);
+        const hole = holes[idx];
+        if (hole === lastHole) {
+          return randomHole(holes);
+        }
+        console.log(idx);
+
+        lastHole = hole;
+        return hole;
+      }
+
+      function peep() {
+        const randomTime = randTime(200, 1000);
+        const hole = randomHole(holes);
+        hole.classList.add("up");
+        setTimeout(() => {
+          hole.classList.remove("up");
+          if (!timeUp) peep();
+        }, randomTime);
+      }
+
+      function startGame() {
+        scoreBoard.textContent = 0;
+        timeUp = false;
+        score = 0;
+        peep();
+        setTimeout(() => {
+          timeUp = true;
+        }, 10000);
+      }
+
+      function boonk(e) {
+        if (!e.isTrusted) return; //cheating
+        console.log("hit!");
+        score++;
+        this.classList.remove("up");
+        scoreBoard.textContent = score;
+      }
+
+      moles.forEach((mole) => mole.addEventListener("click", boonk));
     </script>
   </body>
 </html>
